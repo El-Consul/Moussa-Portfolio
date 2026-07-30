@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moussa Elessawy — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── TOKENS ── */
+[data-theme="dark"] {
+  --bg:       #0d1117;
+  --surface:  #161b22;
+  --surface2: #21262d;
+  --border:   #30363d;
+  --text:     #e6edf3;
+  --text2:    #8b949e;
+  --text3:    #484f58;
+  --green:    #3fb950;
+  --cyan:     #58a6ff;
+  --purple:   #bc8cff;
+  --orange:   #ffa657;
+  --accent:   #3fb950;
+  --tag-bg:   #1f2937;
+}
+[data-theme="light"] {
+  --bg:       #f6f8fa;
+  --surface:  #ffffff;
+  --surface2: #f0f3f6;
+  --border:   #d0d7de;
+  --text:     #1f2328;
+  --text2:    #656d76;
+  --text3:    #afb8c1;
+  --green:    #1a7f37;
+  --cyan:     #0969da;
+  --purple:   #8250df;
+  --orange:   #bc4c00;
+  --accent:   #1a7f37;
+  --tag-bg:   #eaeef2;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  transition: background .3s, color .3s;
+  min-height: 100vh;
+}
+
+/* ── TOGGLE ── */
+#toggle {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 100;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .3s, border-color .3s, transform .2s;
+}
+#toggle:hover { border-color: var(--accent); transform: scale(1.08); }
+
+/* ── PROGRESS ── */
+#prog {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0;
+  background: var(--accent);
+  z-index: 200;
+  transition: width .1s linear;
+}
+
+/* ── LAYOUT ── */
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ── HEADER ── */
+.hdr {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  transition: background .3s, border-color .3s;
+}
+
+.titlebar {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 7px;
+  transition: background .3s, border-color .3s;
+}
+.dot { width: 11px; height: 11px; border-radius: 50%; }
+.dot.r { background: #ff5f57; }
+.dot.y { background: #febc2e; }
+.dot.g { background: #28c840; }
+.tbar-txt { margin-left: 10px; font-size: 11px; color: var(--text2); }
+
+.hdr-body { padding: 28px 32px 24px; }
+
+.prompt {
+  font-size: 11px; color: var(--text3);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 5px;
+}
+.prompt .p-user { color: var(--green); }
+.prompt .p-path { color: var(--cyan); }
+.prompt .p-cmd  { color: var(--text2); }
+.blink {
+  display: inline-block; width: 8px; height: 14px;
+  background: var(--accent); vertical-align: middle;
+  animation: blink .9s step-end infinite; border-radius: 1px;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.name {
+  font-family: 'Syne', sans-serif;
+  font-size: 38px; font-weight: 800;
+  color: var(--text);
+  letter-spacing: -1px; line-height: 1;
+  margin-bottom: 8px;
+  transition: color .3s;
+}
+.name span { color: var(--accent); }
+
+.role {
+  font-size: 11px; color: var(--text2);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.role::before { content: '// '; color: var(--text3); }
+
+.contacts {
+  display: flex; flex-wrap: wrap; gap: 6px 20px;
+  font-size: 11px;
+}
+.contact { display: flex; align-items: center; gap: 5px; color: var(--text2); text-decoration: none; transition: color .2s; }
+.contact:hover { color: var(--accent); }
+.contact .k { color: var(--purple); }
+.contact .eq { color: var(--text3); }
+.contact .v { color: var(--cyan); }
+
+/* ── GRID ── */
+.grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 12px;
+}
+
+/* ── PANEL ── */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 20px;
+  transition: background .3s, border-color .3s;
+}
+
+/* ── SECTION LABEL ── */
+.slabel {
+  font-size: 10px; font-weight: 500;
+  color: var(--text3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  margin-top: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.slabel:first-child { margin-top: 0; }
+.slabel::before { content: '#'; color: var(--accent); font-size: 13px; }
+.slabel::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── SKILLS ── */
+.skill { margin-bottom: 9px; }
+.skill-head {
+  display: flex; justify-content: space-between;
+  font-size: 10.5px; margin-bottom: 4px;
+}
+.skill-head .sn { color: var(--text2); }
+.skill-head .sp { color: var(--accent); font-size: 10px; }
+.bar {
+  height: 2px; background: var(--surface2);
+  border-radius: 2px; overflow: hidden;
+  transition: background .3s;
+}
+.bar-fill {
+  height: 100%; width: 0;
+  border-radius: 2px;
+  transition: width 1s cubic-bezier(.4,0,.2,1);
+}
+.bf-g { background: var(--green); }
+.bf-c { background: var(--cyan); }
+.bf-p { background: var(--purple); }
+
+/* ── EDU ── */
+.edu { margin-bottom: 12px; border-left: 2px solid var(--border); padding-left: 10px; transition: border-color .2s; }
+.edu:hover { border-color: var(--accent); }
+.edu-deg { font-size: 10.5px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+.edu-school { font-size: 10px; color: var(--text2); margin-bottom: 2px; }
+.edu-yr { font-size: 10px; color: var(--orange); font-style: italic; }
+
+/* ── LANG ── */
+.lang {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 0; border-bottom: 1px solid var(--border);
+  font-size: 11px;
+}
+.lang:last-child { border-bottom: none; }
+.lang .ln { color: var(--text2); }
+.lang .ll { font-size: 10px; color: var(--accent); }
+
+/* ── SUMMARY ── */
+.summary {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  font-size: 11px; line-height: 1.8; color: var(--text2);
+  transition: background .3s, border-color .3s;
+}
+.summary .cm { color: var(--text3); }
+
+/* ── JOB ── */
+.job {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 10px;
+  transition: border-color .25s, transform .4s ease, box-shadow .25s, background .3s;
+  background: var(--surface);
+  /* antigravity float */
+  animation: float 6s ease-in-out infinite;
+}
+.job:nth-child(2) { animation-duration: 7s; animation-delay: .5s; }
+.job:nth-child(3) { animation-duration: 5.5s; animation-delay: 1s; }
+.job:nth-child(4) { animation-duration: 8s; animation-delay: 1.5s; }
+.job:nth-child(5) { animation-duration: 6.5s; animation-delay: .3s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+
+.job:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  animation: none;
+  transform: translateY(-6px);
+}
+
+.job-top {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; margin-bottom: 3px;
+}
+.job-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  letter-spacing: -.3px;
+}
+.job-date {
+  font-size: 10px; color: var(--orange);
+  white-space: nowrap;
+}
+.job-co {
+  font-size: 10.5px; color: var(--text2);
+  margin-bottom: 10px;
+}
+.job-co::before { content: '@ '; color: var(--text3); }
+
+.bullets { list-style: none; margin-bottom: 10px; }
+.bullets li {
+  font-size: 11px; color: var(--text2);
+  padding: 2px 0 2px 16px; position: relative; line-height: 1.65;
+}
+.bullets li::before {
+  content: '–'; position: absolute; left: 0;
+  color: var(--text3);
+}
+
+/* ── TAGS ── */
+.tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {
+  font-size: 10px; padding: 2px 9px;
+  border-radius: 20px;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  cursor: default;
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), color .2s, border-color .2s, background .3s;
+  animation: tagfloat 5s ease-in-out infinite;
+}
+.tag:nth-child(2) { animation-delay: .4s; }
+.tag:nth-child(3) { animation-delay: .8s; }
+.tag:nth-child(4) { animation-delay: 1.2s; }
+@keyframes tagfloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+.tag:hover {
+  transform: translateY(-7px) scale(1.1) !important;
+  animation: none;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ── FLOATING CODE DEBRIS ── */
+#debris {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  opacity: .4;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+
+  /* ── BASE ── */
+  body { font-size: 12px; -webkit-text-size-adjust: 100%; }
+
+  #toggle { top: 10px; right: 10px; width: 32px; height: 32px; font-size: 14px; border-radius: 6px; }
+
+  .wrap { padding: 10px 10px 60px; }
+
+  /* ── HEADER ── */
+  .hdr { margin-bottom: 10px; border-radius: 8px; }
+  .hdr-body { padding: 16px 14px 14px; }
+
+  .titlebar { padding: 8px 12px; }
+  .tbar-txt { font-size: 10px; }
+  .dot { width: 9px; height: 9px; }
+
+  .prompt {
+    font-size: 10px;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-bottom: 10px;
+  }
+
+  .name { font-size: 28px; margin-bottom: 5px; }
+  .role { font-size: 10px; margin-bottom: 12px; letter-spacing: 0.5px; }
+
+  .contacts { flex-direction: column; gap: 5px; }
+  .contact { font-size: 10.5px; }
+  .contact .v { color: var(--cyan); }
+
+  /* ── GRID → single column, sidebar BELOW main ── */
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+  }
+
+  /* on mobile: show main (experience) first, sidebar (skills) second */
+  .panel:first-child  { order: 2; } /* sidebar */
+  .panel:last-child   { order: 1; } /* main    */
+
+  .panel { padding: 14px 12px; border-radius: 8px; }
+
+  /* ── SECTION LABEL ── */
+  .slabel { font-size: 9.5px; margin-top: 14px; margin-bottom: 10px; }
+  .slabel:first-child { margin-top: 0; }
+
+  /* ── SKILLS ── */
+  .skill { margin-bottom: 8px; }
+  .skill-head { font-size: 10.5px; }
+  .bar { height: 3px; }
+
+  /* ── EDU ── */
+  .edu { margin-bottom: 10px; }
+  .edu-deg { font-size: 10.5px; }
+  .edu-school { font-size: 10px; }
+  .edu-yr { font-size: 9.5px; }
+
+  /* ── LANG ── */
+  .lang { font-size: 10.5px; }
+  .lang .ll { font-size: 9.5px; }
+
+  /* ── SUMMARY ── */
+  .summary { font-size: 10.5px; padding: 12px; line-height: 1.75; margin-bottom: 12px; }
+
+  /* ── JOBS — keep same look, just no float animation ── */
+  .job {
+    padding: 14px;
+    margin-bottom: 8px;
+    animation: none !important;
+    transform: none !important;
+  }
+  .job:active { border-color: var(--accent); }
+
+  .job-top { display: flex; flex-direction: row; flex-wrap: wrap; gap: 4px; align-items: baseline; margin-bottom: 3px; }
+  .job-title { font-size: 13px; flex: 1; min-width: 0; }
+  .job-date { font-size: 10px; white-space: nowrap; }
+  .job-co { font-size: 10px; margin-bottom: 8px; }
+
+  .bullets li { font-size: 10.5px; line-height: 1.6; }
+
+  /* ── TAGS ── */
+  .tags { gap: 4px; }
+  .tag {
+    font-size: 9.5px;
+    padding: 2px 8px;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* ── PRINT ── */
+@media print {
+  #toggle, #prog, #debris { display: none !important; }
+  * { animation: none !important; opacity: 1 !important; transform: none !important; }
+  body { background: white; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<button id="toggle" title="Toggle theme">🌙</button>
+<canvas id="debris"></canvas>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr reveal">
+    <div class="titlebar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <span class="tbar-txt">moussa_elessawy.cv</span>
+    </div>
+    <div class="hdr-body">
+      <div class="prompt">
+        <span class="p-user">moussa</span>
+        <span style="color:var(--text3)">@career</span>
+        <span class="p-path">~/profile</span>
+        <span class="p-cmd">$ cat</span>
+        <span style="color:var(--text2)">me.json</span>
+        <span class="blink"></span>
+      </div>
+      <div class="name">Moussa<br><span>Elessawy</span></div>
+      <div class="role">Account Manager · Automation Specialist</div>
+      <div class="contacts">
+        <span class="contact"><span class="k">phone</span><span class="eq">:</span><span class="v">"+20 120 629 6238"</span></span>
+        <a href="mailto:mosaelesawy@gmail.com" class="contact"><span class="k">email</span><span class="eq">:</span><span class="v">"mosaelesawy@gmail.com"</span></a>
+        <span class="contact"><span class="k">city</span><span class="eq">:</span><span class="v">"Alexandria, EG"</span></span>
+        <a href="https://linkedin.com/in/moussa-elessawy-217aa6236" target="_blank" class="contact"><span class="k">linkedin</span><span class="eq">:</span><span class="v">"moussa-elessawy"</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <!-- SIDEBAR -->
+    <div class="panel">
+
+      <div class="slabel reveal">skills</div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">n8n Automation</span><span class="sp">92%</span></div><div class="bar"><div class="bar-fill bf-g" data-w="92"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">Account Mgmt</span><span class="sp">95%</span></div><div class="bar"><div class="bar-fill bf-g" data-w="95"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">API Integration</span><span class="sp">88%</span></div><div class="bar"><div class="bar-fill bf-c" data-w="88"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">Client Retention</span><span class="sp">93%</span></div><div class="bar"><div class="bar-fill bf-g" data-w="93"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">B2B Sales</span><span class="sp">91%</span></div><div class="bar"><div class="bar-fill bf-c" data-w="91"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">Pipeline Mgmt</span><span class="sp">89%</span></div><div class="bar"><div class="bar-fill bf-c" data-w="89"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">CRM Systems</span><span class="sp">85%</span></div><div class="bar"><div class="bar-fill bf-p" data-w="85"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">Team Leadership</span><span class="sp">84%</span></div><div class="bar"><div class="bar-fill bf-p" data-w="84"></div></div></div>
+
+      <div class="slabel reveal">tech</div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">HTML/CSS/JS</span><span class="sp">80%</span></div><div class="bar"><div class="bar-fill bf-c" data-w="80"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">React</span><span class="sp">72%</span></div><div class="bar"><div class="bar-fill bf-c" data-w="72"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">REST APIs</span><span class="sp">86%</span></div><div class="bar"><div class="bar-fill bf-g" data-w="86"></div></div></div>
+      <div class="skill reveal"><div class="skill-head"><span class="sn">Digital Marketing</span><span class="sp">78%</span></div><div class="bar"><div class="bar-fill bf-p" data-w="78"></div></div></div>
+
+      <div class="slabel reveal">education</div>
+      <div class="edu reveal">
+        <div class="edu-deg">BSc Computer &amp; Info Systems</div>
+        <div class="edu-school">HICIS — Alexandria</div>
+        <div class="edu-yr">2021 – 2025</div>
+      </div>
+      <div class="edu reveal">
+        <div class="edu-deg">Front-End Development</div>
+        <div class="edu-school">Udemy — Online</div>
+        <div class="edu-yr">2025</div>
+      </div>
+
+      <div class="slabel reveal">languages</div>
+      <div class="lang reveal"><span class="ln">Arabic</span><span class="ll">native</span></div>
+      <div class="lang reveal"><span class="ln">English</span><span class="ll">B2 upper-int</span></div>
+
+    </div>
+
+    <!-- MAIN -->
+    <div class="panel">
+
+      <div class="summary reveal">
+        <span class="cm">/* </span>Account Manager &amp; Automation Specialist bridging business needs with technical solutions.
+        Designing n8n workflows · Healthcare &amp; Tech sectors · Reducing manual effort · Delivering client value<span class="cm"> */</span>
+      </div>
+
+      <div class="slabel reveal">experience</div>
+
+      <div class="job reveal">
+        <div class="job-top">
+          <div class="job-title">Account Manager</div>
+          <div class="job-date">Jun 2025 → now</div>
+        </div>
+        <div class="job-co">MEDOC – Digital Care · Giza, Egypt</div>
+        <ul class="bullets">
+          <li>Managed client accounts for orgs &amp; clinics on MEDOC's integrated health &amp; benefits platform.</li>
+          <li>Designed &amp; deployed n8n workflows, cutting manual response time for client requests.</li>
+          <li>Key liaison between clients and tech teams — translating requirements into scalable solutions.</li>
+          <li>Monitored account health indicators and resolved issues proactively.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">n8n</span><span class="tag">automation</span><span class="tag">account-mgmt</span><span class="tag">health-tech</span>
+        </div>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-top">
+          <div class="job-title">Software Sales Specialist</div>
+          <div class="job-date">2024</div>
+        </div>
+        <div class="job-co">Udjat Agency · Alexandria, Egypt</div>
+        <ul class="bullets">
+          <li>Consistently met and exceeded monthly sales targets via structured pipeline management.</li>
+          <li>Delivered tailored demos that converted prospects into long-term clients.</li>
+          <li>Built a portfolio of recurring B2B accounts, driving sustained revenue growth.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">B2B-sales</span><span class="tag">pipeline</span><span class="tag">CRM</span><span class="tag">digital-marketing</span>
+        </div>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-top">
+          <div class="job-title">Sales Manager</div>
+          <div class="job-date">2023 → 2024</div>
+        </div>
+        <div class="job-co">IDENT Dental Lab · Alexandria, Egypt</div>
+        <ul class="bullets">
+          <li>Led and coached a sales team to surpass monthly revenue targets.</li>
+          <li>Developed go-to-market strategies expanding client base and market share.</li>
+          <li>Strengthened B2B partnerships and improved retention through relationship-driven sales.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">team-lead</span><span class="tag">revenue-growth</span><span class="tag">B2B-retention</span><span class="tag">strategy</span>
+        </div>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-top">
+          <div class="job-title">Owner &amp; Business Manager</div>
+          <div class="job-date">Sep 2022 → Jan 2024</div>
+        </div>
+        <div class="job-co">Whats · Alexandria, Egypt</div>
+        <ul class="bullets">
+          <li>Founded and managed full business ops: sales, client acquisition, project delivery.</li>
+          <li>Identified needs, negotiated and closed profitable projects at high win rate.</li>
+          <li>Oversaw admin, team delegation, and daily operations management.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">entrepreneurship</span><span class="tag">biz-dev</span><span class="tag">negotiation</span><span class="tag">operations</span>
+        </div>
+      </div>
+
+      <div class="job reveal">
+        <div class="job-top">
+          <div class="job-title">Senior Sales Executive</div>
+          <div class="job-date">Feb 2019 → Sep 2022</div>
+        </div>
+        <div class="job-co">Elswefy Store · Alexandria, Egypt</div>
+        <ul class="bullets">
+          <li>Exceeded sales targets managing a diverse portfolio of products and services.</li>
+          <li>Maximized profit margins via strong negotiation while maintaining exceptional service.</li>
+          <li>Developed data-driven sales strategies from consumer trends and market research.</li>
+          <li>Maintained detailed activity records through online CRM systems.</li>
+        </ul>
+        <div class="tags">
+          <span class="tag">sales-exec</span><span class="tag">negotiation</span><span class="tag">market-research</span><span class="tag">CX</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PROGRESS ──
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - innerHeight) * 100;
+  prog.style.width = Math.min(pct, 100) + '%';
+});
+
+// ── THEME TOGGLE ──
+const btn = document.getElementById('toggle');
+let dark = true;
+btn.addEventListener('click', () => {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  btn.textContent = dark ? '🌙' : '☀️';
+});
+
+// ── REVEAL ──
+const revs = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.bar-fill').forEach(b => {
+        setTimeout(() => b.style.width = b.dataset.w + '%', 250);
+      });
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+revs.forEach((el, i) => {
+  el.style.transitionDelay = Math.min(i * 0.05, 0.35) + 's';
+  obs.observe(el);
+});
+
+// ── CODE RAIN BACKGROUND ──
+const cv = document.getElementById('debris');
+const cx = cv.getContext('2d');
+
+function resizeCv() { cv.width = innerWidth; cv.height = innerHeight; initCols(); }
+window.addEventListener('resize', resizeCv);
+
+// Real code snippets — split into individual tokens per column
+const codeLines = [
+  'const user = {', '  name: "Moussa",', '  role: "AM",',
+  '  skills: [', '    "n8n",', '    "APIs",', '    "CRM"', '  ]', '};',
+  'function automate(flow) {', '  return flow', '    .filter(ok)', '    .map(run);', '}',
+  'async function fetch(url) {', '  const res = await', '    api.get(url);', '  return res.data;', '}',
+  'workflow.on("trigger", e => {', '  notify(e.client);', '  log(e.ts);', '});',
+  'if (client.happy) {', '  retain();', '} else {', '  escalate();', '}',
+  'const pipeline =', '  leads.filter(q)', '  .map(demo)', '  .close();',
+  'class Account {', '  constructor(id) {', '    this.id = id;', '  }',
+  '  async health() {', '    return kpi.get(id);', '  }', '}',
+  '// integrate CRM', 'webhook.post("/lead",', '  async (req) => {', '    await crm.add(req);', '  });',
+  'export default {', '  manager: Moussa,', '  stack: n8n,', '  mode: "auto"', '};',
+  'import { n8n }', '  from "@workflow";',
+  'const deal = await', '  sales.close(lead);',
+  'return { success: true };', 'console.log("done ✓");',
+];
+
+const FONT_SIZE = 12;
+const COL_W     = () => window.innerWidth < 640 ? 110 : 200;
+let cols = [];
+
+function initCols() {
+  const cw = COL_W();
+  const numCols = Math.ceil(cv.width / cw) + 1;
+  cols = Array.from({ length: numCols }, (_, i) => ({
+    x: i * cw + Math.random() * 30 - 15,
+    y: Math.random() * -cv.height * 1.5,           // start above screen
+    speed: Math.random() * 0.5 + 0.25,             // slow rain
+    lines: shuffleLines(),
+    lineIdx: 0,
+    lineY: 0,
+  }));
+}
+
+function shuffleLines() {
+  const arr = [...codeLines];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// colour per token type (very simple classifier)
+function tokenColor(line, isDark) {
+  const t = line.trim();
+  if (/^\/\//.test(t))                              return isDark ? '#3fb950' : '#1a7f37';   // comment → green
+  if (/^(const|let|var|function|class|return|import|export|async|await|if|else)/.test(t))
+                                                     return isDark ? '#ff7b72' : '#cf222e';   // keyword → red
+  if (/^["'`]/.test(t) || /".*"/.test(t))           return isDark ? '#a5d6ff' : '#0a3069';   // string → light blue
+  if (/^\s*\/\//.test(line))                         return isDark ? '#3fb950' : '#1a7f37';
+  if (/[(){}[\]]/.test(t) && t.length <= 3)         return isDark ? '#ffa657' : '#bc4c00';   // bracket → orange
+  return isDark ? '#8b949e' : '#656d76';                                                       // default → muted
+}
+
+function drawRain() {
+  // fade trail
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  cx.fillStyle = isDark ? 'rgba(13,17,23,0.18)' : 'rgba(246,248,250,0.18)';
+  cx.fillRect(0, 0, cv.width, cv.height);
+
+  cx.font = `${window.innerWidth < 640 ? 10 : 12}px "JetBrains Mono", monospace`;
+
+  cols.forEach(col => {
+    const line = col.lines[col.lineIdx % col.lines.length];
+    const y    = col.y;
+
+    if (y > 0 && y < cv.height + FONT_SIZE) {
+      cx.globalAlpha = 0.28;
+      cx.fillStyle   = tokenColor(line, isDark);
+      cx.fillText(line, col.x, y);
+    }
+
+    col.y += col.speed;
+
+    // advance to next line every FONT_SIZE+4 px
+    if (col.y - col.lineY > FONT_SIZE + 4) {
+      col.lineY = col.y;
+      col.lineIdx++;
+    }
+
+    // reset column when it exits bottom
+    if (col.y > cv.height + 200) {
+      col.y      = Math.random() * -cv.height;
+      col.lineY  = col.y;
+      col.lineIdx = 0;
+      col.speed  = Math.random() * 0.5 + 0.25;
+      col.lines  = shuffleLines();
+    }
+  });
+
+  requestAnimationFrame(drawRain);
+}
+
+resizeCv();
+drawRain();
+</script>
+</body>
+</html>
