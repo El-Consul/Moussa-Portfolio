@@ -819,7 +819,7 @@ btn.addEventListener('click', () => {
   }
 });
 
-// ── INTERACTIVE GA4 EVENT TRACKING ──
+// ── INTERACTIVE GA4 & GOOGLE TAGS EVENT TRACKING ──
 function trackClick(id, category, label) {
   const el = document.getElementById(id);
   if (el) {
@@ -837,6 +837,20 @@ function trackClick(id, category, label) {
 trackClick('contact-phone', 'Contact', 'Phone Number');
 trackClick('contact-email', 'Contact', 'Email Address');
 trackClick('contact-linkedin', 'Contact', 'LinkedIn Profile');
+
+// ── GOOGLE TAGS - KEYWORD & TAG CLICK TRACKING ──
+document.querySelectorAll('.tag').forEach(tag => {
+  tag.style.cursor = 'pointer';
+  tag.addEventListener('click', () => {
+    if (typeof gtag === 'function') {
+      gtag('event', 'keyword_tag_click', {
+        'event_category': 'Engagement',
+        'event_label': tag.textContent.trim(),
+        'tag_name': tag.textContent.trim()
+      });
+    }
+  });
+});
 
 // ── REVEAL ON SCROLL ──
 const revs = document.querySelectorAll('.reveal');
