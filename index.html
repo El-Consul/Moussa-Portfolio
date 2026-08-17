@@ -909,29 +909,53 @@ function trackClick(id, category, label) {
         gtag('event', 'contact_click', {
           'event_category': category,
           'event_label': label,
+          'contact_type': label,
           'destination_url': el.href || ''
         });
       }
     });
   }
 }
-trackClick('contact-phone', 'Contact', 'Phone Number');
-trackClick('contact-email', 'Contact', 'Email Address');
-trackClick('contact-linkedin', 'Contact', 'LinkedIn Profile');
+trackClick('contact-phone', 'Contact', 'Phone');
+trackClick('contact-email', 'Contact', 'Email');
+trackClick('contact-linkedin', 'Contact', 'LinkedIn');
 
 // ── GOOGLE TAGS - KEYWORD & TAG CLICK TRACKING ──
 document.querySelectorAll('.tag').forEach(tag => {
   tag.style.cursor = 'pointer';
   tag.addEventListener('click', () => {
+    const tagName = tag.textContent.trim();
     if (typeof gtag === 'function') {
       gtag('event', 'keyword_tag_click', {
         'event_category': 'Engagement',
-        'event_label': tag.textContent.trim(),
-        'tag_name': tag.textContent.trim()
+        'event_label': tagName,
+        'tag_name': tagName
       });
     }
   });
 });
+
+// ── SECTION ENGAGEMENT TRACKING (SEO & USER BEHAVIOR) ──
+const trackedSections = new Set();
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const sectionHeader = entry.target.querySelector('h2.slabel') || entry.target.querySelector('h3.job-title');
+      const sectionName = sectionHeader ? sectionHeader.textContent.trim() : entry.target.tagName;
+      if (sectionName && !trackedSections.has(sectionName)) {
+        trackedSections.add(sectionName);
+        if (typeof gtag === 'function') {
+          gtag('event', 'section_view', {
+            'event_category': 'Content Engagement',
+            'section_name': sectionName
+          });
+        }
+      }
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.panel, .job').forEach(sec => sectionObserver.observe(sec));
 
 // ── REVEAL ON SCROLL ──
 const revs = document.querySelectorAll('.reveal');
