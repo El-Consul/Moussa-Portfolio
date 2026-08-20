@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moussa Elessawy - CV</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d1117; --surface: #161b22; --surface2: #21262d; --border: #30363d;
+      --text: #e6edf3; --text2: #8b949e; --green: #3fb950; --cyan: #58a6ff;
+      --purple: #bc8cff; --orange: #ffa657; --accent: #3fb950;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; min-height: 100vh; }
+    .cv-wrap { max-width: 720px; margin: 0 auto; padding: 32px 24px 48px; }
+    .print-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .print-bar a { font-size: 12px; color: var(--cyan); text-decoration: none; }
+    .print-bar a:hover { text-decoration: underline; }
+    .btn-print { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; padding: 8px 20px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; transition: opacity .2s; }
+    .btn-print:hover { opacity: 0.85; }
+    .cv-header { text-align: center; margin-bottom: 28px; }
+    .cv-name { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); letter-spacing: -1px; margin-bottom: 4px; }
+    .cv-title { font-size: 14px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+    .cv-contact { font-size: 11px; color: var(--text2); display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; }
+    .cv-contact a { color: var(--cyan); text-decoration: none; }
+    .cv-contact a:hover { text-decoration: underline; }
+    .cv-section { margin-bottom: 24px; }
+    .cv-section-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .cv-item { margin-bottom: 16px; }
+    .cv-item-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 2px; }
+    .cv-item-title { font-size: 13px; font-weight: 700; color: var(--text); }
+    .cv-item-date { font-size: 11px; color: var(--orange); white-space: nowrap; font-weight: 600; }
+    .cv-item-sub { font-size: 11px; color: var(--text2); margin-bottom: 6px; }
+    .cv-item-metric { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 12px; border: 1px solid; margin-left: 8px; vertical-align: middle; }
+    .m-green { color: var(--green); border-color: var(--green); }
+    .m-cyan { color: var(--cyan); border-color: var(--cyan); }
+    .m-purple { color: var(--purple); border-color: var(--purple); }
+    .m-orange { color: var(--orange); border-color: var(--orange); }
+    .cv-bullets { list-style: none; }
+    .cv-bullets li { font-size: 12px; color: var(--text2); padding: 2px 0 2px 16px; position: relative; line-height: 1.6; }
+    .cv-bullets li::before { content: '>'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .cv-skills { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; }
+    .cv-skill { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text2); }
+    .cv-skill-level { font-size: 10px; color: var(--accent); font-weight: 600; }
+    .cv-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+    .cv-tag { font-size: 10px; padding: 3px 8px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--border); color: var(--text2); }
+    .cv-edu-item { padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; }
+    .cv-edu-degree { font-size: 12px; font-weight: 600; color: var(--text); }
+    .cv-edu-school { font-size: 11px; color: var(--text2); }
+    .cv-edu-year { font-size: 11px; color: var(--orange); font-style: italic; }
+    .cv-lang { display: flex; justify-content: space-between; padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; font-size: 12px; }
+    .cv-lang-name { color: var(--text); font-weight: 500; }
+    .cv-lang-level { color: var(--accent); }
+    .cv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .cv-footer { text-align: center; margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 10px; color: var(--text2); }
+    @media print {
+      :root { --bg: #ffffff; --surface: #ffffff; --surface2: #f0f3f6; --border: #d0d7de; --text: #1f2328; --text2: #656d76; --green: #1a7f37; --cyan: #0969da; --purple: #8250df; --orange: #bc4c00; --accent: #1a7f37; }
+      body { background: #fff; font-size: 11px; }
+      .print-bar { display: none !important; }
+      .cv-wrap { padding: 0; max-width: 100%; }
+      .cv-section { page-break-inside: avoid; }
+      .cv-item { page-break-inside: avoid; }
+      .cv-bullets li { color: #333; }
+      .cv-item-sub { color: #555; }
+      .cv-contact a { color: #0969da; }
+      .cv-tag { background: #f0f3f6; color: #555; }
+      .cv-edu-item, .cv-lang { background: #f6f8fa; }
+      .cv-skill-level, .cv-lang-level, .cv-edu-year, .cv-item-date { color: #bc4c00; }
+      .cv-section-title { color: #1a7f37; border-bottom-color: #d0d7de; }
+      .cv-bullets li::before { color: #1a7f37; }
+      .cv-title { color: #1a7f37; }
+    }
+    @media (max-width: 600px) {
+      .cv-wrap { padding: 16px; }
+      .cv-name { font-size: 24px; }
+      .cv-contact { flex-direction: column; gap: 4px; }
+      .cv-skills { grid-template-columns: 1fr; }
+      .cv-row { grid-template-columns: 1fr; }
+      .cv-item-top { flex-direction: column; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+<div class="cv-wrap">
+  <div class="print-bar">
+    <a href="/">&larr; Back to Portfolio</a>
+    <button class="btn-print" onclick="window.print()">Print / Save PDF</button>
+  </div>
+  <div class="cv-header">
+    <div class="cv-name">Moussa Elessawy</div>
+    <div class="cv-title">Account Manager &amp; Automation Specialist</div>
+    <div class="cv-contact">
+      <span>Alexandria, Egypt</span>
+      <a href="tel:+201206296238">+20 120 629 6238</a>
+      <a href="mailto:mosaelesawy@gmail.com">mosaelesawy@gmail.com</a>
+      <a href="https://linkedin.com/in/moussa-elessawy-217aa6236" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/El-Consul" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+  <div class="cv-section">
+    <div class="cv-section-title">Professional Summary</div>
+    <p style="font-size:12px;color:var(--text2);line-height:1.7;">
+      Account Manager &amp; Automation Specialist bridging business needs with technical solutions.
+      I design <strong style="color:var(--text)">n8n workflows</strong>, manage B2B accounts, and build
+      <strong style="color:var(--text)">CRM integrations</strong> that reduce manual effort by up to 85%.
+      Available for remote opportunities worldwide.
+    </p>
+  </div>
+  <div class="cv-section">
+    <div class="cv-section-title">Experience</div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Account Manager</div>
+        <div class="cv-item-date">Jun 2025 &rarr; Present</div>
+      </div>
+      <div class="cv-item-sub">MEDOC &ndash; Digital Care &middot; Giza, Egypt</div>
+      <ul class="cv-bullets">
+        <li>Manage a portfolio of healthcare organizations and clinics on MEDOC's integrated platform</li>
+        <li>Designed &amp; deployed n8n workflows that cut manual response time for client requests by 85%</li>
+        <li>Serve as the primary liaison between clients and engineering &mdash; translating needs into solutions</li>
+        <li>Monitor account health KPIs and resolve issues proactively to prevent churn</li>
+        <li>Onboard new clients and configure platform integrations aligned to their operations</li>
+        <li>Document client feedback loops and escalate product improvement requests to tech leads</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">n8n</span><span class="cv-tag">automation</span><span class="cv-tag">account-mgmt</span><span class="cv-tag">health-tech</span></div>
+    </div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Software Sales Specialist</div>
+        <div class="cv-item-date">2024</div>
+      </div>
+      <div class="cv-item-sub">Udjat Agency &middot; Alexandria, Egypt</div>
+      <ul class="cv-bullets">
+        <li>Exceeded monthly sales targets through structured pipeline management and follow-up cadence</li>
+        <li>Delivered tailored product demos that converted cold prospects into long-term B2B clients</li>
+        <li>Built and managed a growing portfolio of recurring accounts driving sustained revenue</li>
+        <li>Qualified inbound and outbound leads using consultative discovery and needs analysis</li>
+        <li>Maintained CRM hygiene &mdash; logged activities, updated deal stages, and forecasted revenue</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">B2B-sales</span><span class="cv-tag">pipeline</span><span class="cv-tag">CRM</span><span class="cv-tag">SaaS-demo</span></div>
+    </div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Sales Manager</div>
+        <div class="cv-item-date">2023 &rarr; 2024</div>
+      </div>
+      <div class="cv-item-sub">IDENT Dental Lab &middot; Alexandria, Egypt</div>
+      <ul class="cv-bullets">
+        <li>Led and coached a sales team to consistently surpass monthly revenue targets</li>
+        <li>Developed go-to-market strategies that expanded client base and market share</li>
+        <li>Strengthened B2B partnerships and improved client retention through relationship-driven sales</li>
+        <li>Set team KPIs, conducted performance reviews, and implemented rep training programs</li>
+        <li>Collaborated with marketing on lead generation campaigns and outreach sequences</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">team-lead</span><span class="cv-tag">revenue-growth</span><span class="cv-tag">B2B-retention</span><span class="cv-tag">strategy</span></div>
+    </div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Owner &amp; Business Manager</div>
+        <div class="cv-item-date">Sep 2022 &rarr; Jan 2024</div>
+      </div>
+      <div class="cv-item-sub">Whats &middot; Alexandria, Egypt</div>
+      <ul class="cv-bullets">
+        <li>Founded and ran a full-service agency managing sales, client acquisition, and delivery</li>
+        <li>Identified client needs, negotiated scope, and closed profitable projects at a high win rate</li>
+        <li>Oversaw admin operations, team delegation, and day-to-day business management</li>
+        <li>Built the client acquisition pipeline from zero &mdash; cold outreach to signed contracts</li>
+        <li>Managed project budgets and timelines to ensure on-time delivery and client satisfaction</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">entrepreneurship</span><span class="cv-tag">biz-dev</span><span class="cv-tag">negotiation</span><span class="cv-tag">operations</span></div>
+    </div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Senior Sales Executive</div>
+        <div class="cv-item-date">Feb 2019 &rarr; Sep 2022</div>
+      </div>
+      <div class="cv-item-sub">Elswefy Store &middot; Alexandria, Egypt</div>
+      <ul class="cv-bullets">
+        <li>Exceeded annual sales targets managing a diverse portfolio of products and services</li>
+        <li>Maximized profit margins through strong negotiation while maintaining customer satisfaction</li>
+        <li>Developed data-driven sales strategies based on consumer trends and market research</li>
+        <li>Built and maintained repeat-client relationships driving consistent referral business</li>
+        <li>Analyzed weekly sales data to identify top-performing products and optimize pricing</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">sales-exec</span><span class="cv-tag">negotiation</span><span class="cv-tag">market-research</span><span class="cv-tag">CX</span></div>
+    </div>
+  </div>
+  <div class="cv-section">
+    <div class="cv-section-title">Featured Projects</div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">n8n Automated Lead Ingestion &amp; CRM Sync <span class="cv-item-metric m-green">-85% Response Time</span></div>
+      </div>
+      <div class="cv-item-sub">Webhook Pipeline &middot; Multi-CRM Orchestration &middot; Slack &amp; WhatsApp Alerts</div>
+      <ul class="cv-bullets">
+        <li>Built end-to-end n8n webhook pipelines ingesting leads from multiple sources in real time</li>
+        <li>Automated lead enrichment, validation, and deduplication &mdash; zero manual data entry</li>
+        <li>Direct CRM routing with instant Slack &amp; WhatsApp alerts to sales reps</li>
+        <li>Slashed average client response time by 85% across all inbound channels</li>
+        <li>Eliminated lead leakage &mdash; 100% of inbound requests now tracked and assigned</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">n8n</span><span class="cv-tag">webhooks</span><span class="cv-tag">CRM-sync</span><span class="cv-tag">lead-routing</span></div>
+    </div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Healthcare Automated Ticket &amp; SLA Routing <span class="cv-item-metric m-cyan">94% Retention Rate</span></div>
+      </div>
+      <div class="cv-item-sub">Digital Care Operations &middot; SLA Escalation &middot; Client Health Monitoring</div>
+      <ul class="cv-bullets">
+        <li>Automated priority triage for medical partner requests and corporate health benefit queries</li>
+        <li>Smart SLA monitoring triggers &mdash; alerts account managers before deadlines breach</li>
+        <li>Proactive issue resolution loop strengthened retention rate to 94%</li>
+        <li>Reduced ticket resolution time across the healthcare partner queue by 60%+</li>
+        <li>Centralized client health dashboard for real-time account visibility</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">health-tech</span><span class="cv-tag">SLA-management</span><span class="cv-tag">client-retention</span><span class="cv-tag">n8n</span></div>
+    </div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Automated B2B Sales Pipeline &amp; KPI Engine <span class="cv-item-metric m-purple">+40% Deal Velocity</span></div>
+      </div>
+      <div class="cv-item-sub">Sales Funnel Optimization &middot; Automated Follow-ups &middot; Performance Analytics</div>
+      <ul class="cv-bullets">
+        <li>Automated multi-touch follow-up sequences across email and CRM touchpoints</li>
+        <li>Built weekly KPI reporting engine with conversion metrics and pipeline bottleneck alerts</li>
+        <li>Accelerated deal velocity by 40% with zero dropped leads across the full sales cycle</li>
+        <li>Identified and eliminated 3 pipeline bottlenecks reducing average close time by 2 weeks</li>
+        <li>Created reusable sales playbook &mdash; templated for onboarding new reps in half the time</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">B2B-sales</span><span class="cv-tag">pipeline</span><span class="cv-tag">KPI-tracking</span><span class="cv-tag">CRM</span></div>
+    </div>
+    <div class="cv-item">
+      <div class="cv-item-top">
+        <div class="cv-item-title">Interactive Terminal CV &amp; High-Performance Web App <span class="cv-item-metric m-orange">100% SEO Score</span></div>
+      </div>
+      <div class="cv-item-sub">Modern Frontend &middot; Vanilla CSS &amp; JS &middot; GA4 &amp; Google Tag &middot; Vercel Edge</div>
+      <ul class="cv-bullets">
+        <li>Terminal-themed responsive portfolio &mdash; zero external JS bundles, pure vanilla stack</li>
+        <li>Achieved 100% Lighthouse SEO score with JSON-LD, Open Graph, and canonical directives</li>
+        <li>GA4 event tracking with Vercel Edge Analytics for real-time engagement data</li>
+        <li>Dark/light theme toggle with system preference detection and localStorage persistence</li>
+        <li>Sub-100ms page load on Vercel Edge &mdash; optimized for recruiter browsing on mobile</li>
+      </ul>
+      <div class="cv-tags"><span class="cv-tag">HTML5/CSS3</span><span class="cv-tag">JavaScript</span><span class="cv-tag">SEO-100%</span><span class="cv-tag">GA4</span><span class="cv-tag">Vercel</span></div>
+    </div>
+  </div>
+  <div class="cv-section">
+    <div class="cv-section-title">Skills</div>
+    <div class="cv-skills">
+      <div class="cv-skill"><span>n8n Automation</span><span class="cv-skill-level">Expert</span></div>
+      <div class="cv-skill"><span>Account Management</span><span class="cv-skill-level">Expert</span></div>
+      <div class="cv-skill"><span>API Integration</span><span class="cv-skill-level">Advanced</span></div>
+      <div class="cv-skill"><span>Client Retention</span><span class="cv-skill-level">Expert</span></div>
+      <div class="cv-skill"><span>B2B Sales</span><span class="cv-skill-level">Expert</span></div>
+      <div class="cv-skill"><span>Pipeline Management</span><span class="cv-skill-level">Advanced</span></div>
+      <div class="cv-skill"><span>CRM Systems</span><span class="cv-skill-level">Advanced</span></div>
+      <div class="cv-skill"><span>Team Leadership</span><span class="cv-skill-level">Advanced</span></div>
+    </div>
+  </div>
+  <div class="cv-section">
+    <div class="cv-section-title">Education</div>
+    <div class="cv-edu-item">
+      <div class="cv-edu-degree">BSc Computer &amp; Information Systems</div>
+      <div class="cv-edu-school">HICIS &mdash; Alexandria</div>
+      <div class="cv-edu-year">2021 &ndash; 2025</div>
+    </div>
+    <div class="cv-edu-item">
+      <div class="cv-edu-degree">Front-End Development</div>
+      <div class="cv-edu-school">Udemy &mdash; Online</div>
+      <div class="cv-edu-year">2025</div>
+    </div>
+  </div>
+  <div class="cv-row">
+    <div class="cv-section">
+      <div class="cv-section-title">Languages</div>
+      <div class="cv-lang"><span class="cv-lang-name">Arabic</span><span class="cv-lang-level">Native</span></div>
+      <div class="cv-lang"><span class="cv-lang-name">English</span><span class="cv-lang-level">B2 Upper-Intermediate</span></div>
+    </div>
+    <div class="cv-section">
+      <div class="cv-section-title">Tech Stack</div>
+      <div class="cv-tags" style="margin-top:0;">
+        <span class="cv-tag">#n8n</span><span class="cv-tag">#Automation</span><span class="cv-tag">#B2BSales</span>
+        <span class="cv-tag">#CRMSystems</span><span class="cv-tag">#APIIntegration</span><span class="cv-tag">#Webhooks</span>
+        <span class="cv-tag">#LeadGen</span><span class="cv-tag">#Pipeline</span><span class="cv-tag">#SaaS</span>
+        <span class="cv-tag">#Fullstack</span>
+      </div>
+    </div>
+  </div>
+  <div class="cv-footer">
+    &copy; 2026 Moussa Elessawy &middot; <a href="https://moussa-portfolio-nine.vercel.app/" style="color:var(--cyan);text-decoration:none;">moussa-portfolio-nine.vercel.app</a>
+  </div>
+</div>
+</body>
+</html>
