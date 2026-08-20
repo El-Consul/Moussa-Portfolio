@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0d1117"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="#30363d" stroke-width="2"/>
+  <!-- Terminal top dots -->
+  <circle cx="14" cy="14" r="3" fill="#ff5f57"/>
+  <circle cx="23" cy="14" r="3" fill="#febc2e"/>
+  <circle cx="32" cy="14" r="3" fill="#28c840"/>
+  <!-- Terminal Prompt / Monogram M -->
+  <path d="M14 48 L14 26 L26 38 L38 26 L38 48" fill="none" stroke="#3fb950" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Blinking prompt cursor -->
+  <rect x="44" y="38" width="5" height="10" rx="1" fill="#58a6ff"/>
+</svg>

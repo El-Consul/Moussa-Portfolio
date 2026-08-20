@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="av-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+    <linearGradient id="av-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3fb950"/>
+      <stop offset="100%" stop-color="#58a6ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="26" fill="url(#av-bg)"/>
+  <rect x="3" y="3" width="114" height="114" rx="23" fill="none" stroke="#30363d" stroke-width="2"/>
+  <!-- Glowing Monogram ME -->
+  <path d="M28 85 L28 42 L48 64 L68 42 L68 85" fill="none" stroke="url(#av-accent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M78 42 L96 42 M78 63.5 L92 63.5 M78 85 L96 85 M78 42 L78 85" fill="none" stroke="#58a6ff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Status online dot -->
+  <circle cx="98" cy="22" r="6" fill="#28c840"/>
+  <circle cx="98" cy="22" r="8" fill="none" stroke="#3fb950" stroke-width="2" opacity="0.6"/>
+</svg>
